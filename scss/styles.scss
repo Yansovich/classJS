@@ -1,0 +1,89 @@
+:root {
+    --selected-width: 250px;
+    --label-height: 40px
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+%overflow-elipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@mixin overflow-multi-elipsis($countRow){
+    display: -webkit-box;
+    max-width: 100%;
+    -webkit-line-clamp: $countRow;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.select {
+
+    .container {
+        width: var(--selected-width);
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-weight: 600;
+        font-size: 19px;
+        position: relative;
+    }
+
+    &__label {
+        height: var(--label-height);
+        padding: 8px;
+        border-radius: 10px;
+        border: 1px solid black;
+        @extend %overflow-elipsis;
+    }
+
+    &__drop-down {
+        list-style: none;
+        border: 1px solid black;
+        border-radius: 10px;
+        position: absolute;
+        top: var(--label-height);
+        left: 0;
+        width: 100%;
+        min-height: var(--label-height);
+        max-height: 200px;
+        overflow-y: auto;
+
+        li {
+            height: var(--label-height);
+            padding: 5px;
+            @include overflow-multi-elipsis(3);
+
+            &:hover {
+                background-color: aqua;
+            }
+        }
+
+        &::-webkit-scrollbar {
+            width: 7px;
+        }
+       
+        &::-webkit-scrollbar-thumb {          // ползунок        
+            background-color: black;
+            border-radius: 5px;
+        }
+
+        &::-webkit-scrollbar-track {                 
+            background-color: inherit;
+            border-radius: 10%;
+            margin: 2px;
+        }
+    }
+}
+
